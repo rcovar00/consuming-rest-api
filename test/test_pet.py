@@ -39,10 +39,20 @@ class PetBadInPutTest(TestCase):
         pet = Pet.create(pet_data)
         self.assertNotEqual(200, pet.response.status_code)
 
+        pet_data2 = 34
+        self.assertRaises(ValueError, Pet.create, pet_data2)
+
+        self.assertRaises(ValueError, Pet.create, None)
+
     def test_update(self):
         pet_data = {"id": "21A"}
         pet = Pet.update(pet_data)
         self.assertNotEqual(200, pet.response.status_code)
+
+        pet_data2 = "4"
+        self.assertRaises(ValueError, Pet.update, pet_data2)
+
+        self.assertRaises(ValueError, Pet.create, None)
 
     def test_find(self):
         self.assertRaises(ValueError, Pet.find, 'SF')
